@@ -1,0 +1,12 @@
+*.xcuserstate
+DerivedData/
+.DS_Store
+*.xcworkspace/xcuserdata/
+xcuserdata/
+.build/
+*.o
+*.d
+*apikey*
+*secret*
+*.resolved
+build/
