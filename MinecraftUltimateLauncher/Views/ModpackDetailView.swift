@@ -26,7 +26,7 @@ struct ModpackDetailView: View {
         .task {
             vm.load(for: modpack)
         }
-        .onChange(of: modpack) { _, newPack in
+        .onChange(of: modpack) { newPack in
             vm.load(for: newPack)
         }
         .alert("Launch Error", isPresented: $showLaunchError, actions: {
@@ -170,7 +170,7 @@ struct InstalledModRow: View {
         HStack(spacing: 12) {
             Toggle("", isOn: $isEnabled)
                 .labelsHidden()
-                .onChange(of: isEnabled) { _, val in onToggle(val) }
+                .onChange(of: isEnabled) { val in onToggle(val) }
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(mod.name)

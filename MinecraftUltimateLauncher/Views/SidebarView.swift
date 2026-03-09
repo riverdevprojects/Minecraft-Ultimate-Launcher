@@ -55,7 +55,7 @@ struct SidebarView: View {
             .tag(SidebarItem.browseMods)
             .buttonStyle(.plain)
         }
-        .onChange(of: appState.navigationSelection) { _, newValue in
+        .onChange(of: appState.navigationSelection) { newValue in
             if case .modpack(let mp) = newValue {
                 appState.selectedModpack = mp
             }

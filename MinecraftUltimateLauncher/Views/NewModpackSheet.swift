@@ -35,13 +35,13 @@ struct NewModpackSheet: View {
         .onAppear {
             vm.fetchLoaderVersions(for: selectedVersion, loader: selectedLoaderType)
         }
-        .onChange(of: selectedVersion) { _, v in
+        .onChange(of: selectedVersion) { v in
             vm.fetchLoaderVersions(for: v, loader: selectedLoaderType)
         }
-        .onChange(of: selectedLoaderType) { _, t in
+        .onChange(of: selectedLoaderType) { t in
             vm.fetchLoaderVersions(for: selectedVersion, loader: t)
         }
-        .onChange(of: vm.loaderVersions) { _, versions in
+        .onChange(of: vm.loaderVersions) { versions in
             selectedLoaderVersion = versions.first ?? ""
         }
         .sheet(isPresented: $showLoaderProgress) {
