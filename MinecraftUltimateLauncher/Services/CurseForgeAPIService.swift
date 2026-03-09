@@ -133,7 +133,9 @@ final class CurseForgeAPIService: ObservableObject {
         guard let url = URL(string: urlString) else {
             throw CurseForgeError.invalidURL
         }
-        let (asyncBytes, response) = try await session.bytes(from: url)
+        var request = URLRequest(url: url)
+        request.setValue("MinecraftUltimateLauncher/1.0", forHTTPHeaderField: "User-Agent")
+        let (asyncBytes, response) = try await session.bytes(for: request)
         if let http = response as? HTTPURLResponse, http.statusCode != 200 {
             throw CurseForgeError.httpError(http.statusCode)
         }
