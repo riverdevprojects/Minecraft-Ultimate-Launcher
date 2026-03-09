@@ -18,6 +18,7 @@ final class CurseForgeAPIService: ObservableObject {
         )
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 30
+        config.timeoutIntervalForResource = 300
         session = URLSession(configuration: config)
     }
 
@@ -139,12 +140,17 @@ final class CurseForgeAPIService: ObservableObject {
         let totalLength = response.expectedContentLength
         var receivedLength: Int64 = 0
         var data = Data()
+        var lastReportedProgress: Double = 0
 
         for try await byte in asyncBytes {
             data.append(byte)
             receivedLength += 1
             if totalLength > 0 {
-                progress(Double(receivedLength) / Double(totalLength))
+                let p = Double(receivedLength) / Double(totalLength)
+                if p - lastReportedProgress >= 0.01 {
+                    lastReportedProgress = p
+                    progress(p)
+                }
             }
         }
         try data.write(to: destination)

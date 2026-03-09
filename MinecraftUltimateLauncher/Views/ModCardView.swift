@@ -82,7 +82,10 @@ struct ModCardView: View {
                 )
             }
         }
-        .alert("Error", isPresented: .constant(installer.error != nil), actions: {
+        .alert("Error", isPresented: Binding(
+            get: { installer.error != nil },
+            set: { if !$0 { installer.error = nil } }
+        ), actions: {
             Button("OK") { installer.error = nil }
         }, message: {
             Text(installer.error?.localizedDescription ?? "")
@@ -101,7 +104,7 @@ struct ModCardView: View {
                         )
                         if installer.resolutionResult?.optional.isEmpty == false {
                             showDependencySheet = true
-                        } else {
+                        } else if installer.error == nil {
                             onInstalled?()
                             isAlreadyInstalled = true
                         }
