@@ -35,7 +35,7 @@ struct ModBrowserView: View {
 
             TextField("Search mods...", text: $searchText)
                 .textFieldStyle(.plain)
-                .onChange(of: searchText) { _, _ in scheduleSearch() }
+                .onChange(of: searchText) { _ in scheduleSearch() }
 
             Divider().frame(height: 20)
 
@@ -46,7 +46,7 @@ struct ModBrowserView: View {
             }
             .pickerStyle(.menu)
             .frame(width: 100)
-            .onChange(of: selectedVersion) { _, _ in triggerSearch() }
+            .onChange(of: selectedVersion) { _ in triggerSearch() }
 
             Picker("Category", selection: $selectedCategory) {
                 Text("All Categories").tag(Optional<CFCategory>.none)
@@ -56,7 +56,7 @@ struct ModBrowserView: View {
             }
             .pickerStyle(.menu)
             .frame(width: 160)
-            .onChange(of: selectedCategory) { _, _ in triggerSearch() }
+            .onChange(of: selectedCategory) { _ in triggerSearch() }
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 10)
