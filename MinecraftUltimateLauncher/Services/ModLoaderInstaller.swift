@@ -118,13 +118,17 @@ final class ModLoaderInstaller: ObservableObject {
         let totalLength = response.expectedContentLength
         var receivedLength: Int64 = 0
         var data = Data()
+        var lastReportedProgress: Double = 0
 
         for try await byte in asyncBytes {
             data.append(byte)
             receivedLength += 1
             if totalLength > 0 {
                 let p = Double(receivedLength) / Double(totalLength) * 0.5
-                await MainActor.run { self.progress = p }
+                if p - lastReportedProgress >= 0.01 {
+                    lastReportedProgress = p
+                    self.progress = p
+                }
             }
         }
         try data.write(to: destination)
