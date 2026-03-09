@@ -125,7 +125,7 @@ struct NewModpackSheet: View {
                         .overlay {
                             Image(systemName: "plus")
                                 .font(.title2)
-                                .foregroundStyle(.accent)
+                                .foregroundStyle(Color.accentColor)
                         }
                 }
             }

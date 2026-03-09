@@ -100,7 +100,7 @@ struct SidebarModpackRow: View {
                     .overlay {
                         Image(systemName: "cube.box.fill")
                             .font(.system(size: 14))
-                            .foregroundStyle(.accent)
+                            .foregroundStyle(Color.accentColor)
                     }
             }
             VStack(alignment: .leading, spacing: 2) {
